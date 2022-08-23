@@ -501,7 +501,7 @@ const Editor = ({ sections, information, setInfo }) => {
         details: details,
       },
     }));
-    setactiveDetailIndex(prev=>prev<id?prev:prev-1);
+    setactiveDetailIndex(prev=>prev<id?prev:(prev-1) === -1?0:prev-1);
   };
 
   useEffect(() => {
