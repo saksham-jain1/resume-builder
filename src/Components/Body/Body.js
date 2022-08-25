@@ -76,7 +76,7 @@ const Body = () => {
           information={resumeInfo}
           setInfo={setResumeInfo}
         />
-        <Resume />
+        <Resume information={resumeInfo} sections={sections} />
       </div>
     </div>
   );
