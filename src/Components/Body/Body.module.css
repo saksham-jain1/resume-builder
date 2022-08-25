@@ -27,12 +27,38 @@
 }
 
 .colors .color {
-    height: 36px;
-    width: 36px;
+    height: 38px;
+    width: 38px;
     border-radius: 50%;
-    background-color: #239ce2;
+    border: 1px solid white;
+    cursor: pointer;
+    padding: 0px;
+    position: relative;
 }
 
+.colors > input[type=color]::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+  padding: 0px;
+}
+
+.colors > input[type=color]::-webkit-color-swatch-wrapper {
+    border: none;
+    border-radius: 50%;
+    padding: 0px;
+}
+
+.colors > input[type=color]::after {
+    content: "+";
+    position: absolute;
+    top: -13%;
+    left: 19%;
+    font-size: 2.5rem;
+}
+
+.colors .active{
+    box-shadow: 0 0 12px 1px rgb(0, 0, 0);
+}
 .toolbar button{
     padding: 8px 16px;
     border-radius: 5px;

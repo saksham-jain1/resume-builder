@@ -1,4 +1,5 @@
 .container{
+    --color: #239ce2;
     min-width: 500px;
     max-width: 900px;
     margin: 0 auto;
@@ -6,7 +7,6 @@
     height: fit-content;
     min-height: 900px;
     box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.1);
-    --color: #239ce2;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -68,6 +68,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    max-width: 45%;
 }
 
 .section .sectionTitle{
@@ -82,6 +83,8 @@
     flex-direction: column;
     gap: 10px;
     padding: 10px 0;
+    word-wrap: break-word;
+    text-align: justify;
 }
 
 .section .content .item {

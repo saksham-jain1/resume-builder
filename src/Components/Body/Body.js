@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Body.module.css";
 import {ArrowDown} from "react-feather"
 import Editor from "../Editor/Editor";
 import Resume from "../Resume/Resume";
+import ReactToPrint from "react-to-print"
 
 const Body = () => {
   const colors = ["#239ce2", "#48bb78", "#0bc5ea", "#a0aec0", "#ed8936"];
@@ -12,9 +13,11 @@ const Body = () => {
     project: "Projects",
     education: "Education",
     achievements: "Achievements",
+    skills: "Skills",
     summary: "Summary",
     others: "Other",
   };
+  const resumeRef = useRef();
   const [resumeInfo, setResumeInfo] = useState({
     [sections.basicInfo]: {
       id: sections.basicInfo,
@@ -41,6 +44,11 @@ const Body = () => {
       sectionTitle: sections.achievements,
       points: [],
     },
+    [sections.skills]: {
+      id: sections.skills,
+      sectionTitle: sections.skills,
+      detail: "",
+    },
     [sections.summary]: {
       id: sections.summary,
       sectionTitle: sections.summary,
@@ -52,6 +60,7 @@ const Body = () => {
       detail: "",
     },
   });
+  const [activeColor, setActiveColor] = useState(colors[0]);
 
   return (
     <div className={styles.container}>
@@ -61,14 +70,32 @@ const Body = () => {
           {colors.map((curr) => (
             <span
               key={curr}
+              onClick={() => setActiveColor(curr)}
               style={{ background: curr }}
-              className={styles.color}
+              className={`${styles.color} ${
+                activeColor === curr ? styles.active : ""
+              }`}
             />
           ))}
+          <input
+            type="color"
+            className={`${styles.color} ${styles.active}`}
+            value={activeColor}
+            onChange={(e) => {
+              setActiveColor(e.target.value);
+            }}
+          />
         </div>
-        <button>
-          Download <ArrowDown />
-        </button>
+        <ReactToPrint
+          trigger={() => {
+            return (
+              <button>
+                Download <ArrowDown />
+              </button>
+            );
+          }}
+          content={() => resumeRef.current}
+        />
       </div>
       <div className={styles.main}>
         <Editor
@@ -76,7 +103,17 @@ const Body = () => {
           information={resumeInfo}
           setInfo={setResumeInfo}
         />
-        <Resume information={resumeInfo} sections={sections} />
+        <hr />
+        <center>
+          <h1 style={{ color: "#239ce2" }}>Preview</h1>
+        </center>
+        <hr />
+        <Resume
+          ref={resumeRef}
+          information={resumeInfo}
+          sections={sections}
+          activeColor={activeColor}
+        />
       </div>
     </div>
   );

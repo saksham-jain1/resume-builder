@@ -305,6 +305,19 @@ const Editor = ({ sections, information, setInfo }) => {
     </div>
   );
 
+  const skillsBody = (
+    <div className={styles.detail}>
+      <InputControl
+        label="Skills"
+        value={values.skills}
+        placeholder="Enter your skills"
+        onChange={(event) =>
+          setValues((prev) => ({ ...prev, skills: event.target.value }))
+        }
+      />
+    </div>
+  );
+
   const summaryBody = (
     <div className={styles.detail}>
       <InputControl
@@ -343,6 +356,8 @@ const Editor = ({ sections, information, setInfo }) => {
         return educationBody;
       case sections.achievements:
         return achievementsBody;
+      case sections.skills:
+        return skillsBody;
       case sections.summary:
         return summaryBody;
       case sections.others:
@@ -440,6 +455,18 @@ const Editor = ({ sections, information, setInfo }) => {
           [sections.achievements]: {
             ...prev[sections.achievements],
             detail: tempPoints,
+            sectionTitle,
+          },
+        }));
+        break;
+      }
+      case sections.skills: {
+        const tempDetail = values.skills;
+        setInfo((prev) => ({
+          ...prev,
+          [sections.skills]: {
+            ...prev[sections.skills],
+            detail: tempDetail,
             sectionTitle,
           },
         }));
@@ -544,6 +571,7 @@ const Editor = ({ sections, information, setInfo }) => {
         : activeInfo?.detail?.github || "",
       phone: activeInfo?.detail?.phone || "",
       email: activeInfo?.detail?.email || "",
+      skills: typeof activeInfo?.detail !== Object ? activeInfo.detail : "",
       summary: typeof activeInfo?.detail !== Object ? activeInfo.detail : "",
       others: typeof activeInfo?.detail !== Object ? activeInfo.detail : "",
     });
